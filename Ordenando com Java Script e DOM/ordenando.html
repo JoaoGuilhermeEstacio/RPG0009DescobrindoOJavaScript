@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+      crossorigin="anonymous"
+    />
+    <title>Home</title>
+  </head>
+  <body class="p-5">
+    <form class="row justify-content-start grid gap-2 p-5">
+      <h1 class="form-title">Ordenando Valores</h1>
+      <label for="valor" class="form-label m-0 p-0">Valor</label>
+      <input type="number" id="valor" class="form-control col-2" />
+      <button type="button" onclick="add()" class="btn btn-primary col">
+        Adicionar
+      </button>
+      <hr class="m-0" />
+      <select id="listaSelecao" class="form-select">
+        <option value="Bubble Sort" selected>Bubble Sort</option>
+        <option value="Selection Sort">Selection Sort</option>
+        <option value="Quick Sort">Quick Sort</option>
+      </select>
+      <button type="button" onclick="ordenar()" class="btn btn-primary col">
+        Ordenar
+      </button>
+      <button type="button" onclick="misturar()" class="btn btn-primary col">
+        Misturar
+      </button>
+      <hr />
+    </form>
+
+    <ul id="valores"></ul>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="./ordenando.js"></script>
+    <script>
+      const inputValor = document.getElementById("valor");
+      const listaValoresUl = document.getElementById("valores");
+      const listaSelecao = document.getElementById("listaSelecao");
+      function add() {
+        if (inputValor.value != "") {
+          var node = document.createElement("li");
+          var nodeText = document.createTextNode(inputValor.value);
+          node.appendChild(nodeText);
+          listaValoresUl.appendChild(node);
+        }
+      }
+      function ordenar() {
+        const vetor = [];
+        for (const iterator of listaValoresUl.children) {
+          vetor.push(eval(iterator.innerHTML));
+        }
+        if (listaSelecao.selectedIndex == 0) {
+          var arr = [];
+          bubble_sort(vetor).map((item) => {
+            arr.push(item);
+          });
+          const listaLi = Array.from(listaValoresUl.children);
+          for (let i = 0; i < arr.length;i++) {
+            setTimeout(() => {
+              listaLi[i].innerHTML = 0;
+            }, 500);
+            setTimeout(() => {
+              listaLi[i].innerHTML = arr[i];
+            }, 1000);
+          }
+        } else if (listaSelecao.selectedIndex == 1) {
+        } else {
+        }
+      }
+      function misturar() {
+        const vetor = [];
+        for (const iterator of listaValoresUl.children) {
+          vetor.push(eval(iterator.innerHTML));
+        }
+        var arr = [];
+        shuffle(vetor).map((item) => {
+          arr.push(item);
+        });
+        const listaLi = Array.from(listaValoresUl.children);
+        for (let i = 0; i < arr.length; i++) {
+          listaLi[i].innerHTML = arr[i];
+        }
+      }
+    </script>
+  </body>
+</html>
